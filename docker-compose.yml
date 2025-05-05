@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskly-engine
+    environment:
+      DB_HOST: postgres
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWD: ${DB_PASSWD}
+      DB_SCHEMA: ${DB_SCHEMA}
+    ports:
+      - "8081:8080"
+    networks:
+      - shared-network
+networks:
+  shared-network:
+    external: true
