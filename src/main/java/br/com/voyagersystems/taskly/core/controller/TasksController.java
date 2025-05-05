@@ -7,10 +7,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("tasks")
@@ -23,4 +22,23 @@ public class TasksController {
         return new ResponseEntity<>(service.create(newTaskDTO), HttpStatus.CREATED);
     }
 
+    @PatchMapping("update/{taskId}")
+    public ResponseEntity<TasksDTO> update(@RequestBody @Valid NewTaskDTO updateDTO, @PathVariable Long taskId) {
+        return new ResponseEntity<>(service.update(updateDTO, taskId), HttpStatus.OK);
+    }
+
+    @GetMapping("{taskId}")
+    public ResponseEntity<TasksDTO> list(@PathVariable Long taskId) {
+        return  new ResponseEntity<>(service.list(taskId), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TasksDTO>> listAll() {
+        return new ResponseEntity<>(service.list(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("delete/{taskId}")
+    public void delete(@PathVariable Long taskId) {
+        service.delete(taskId);
+    }
 }

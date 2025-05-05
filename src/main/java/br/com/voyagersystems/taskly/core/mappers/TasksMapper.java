@@ -13,8 +13,10 @@ public interface TasksMapper {
 
     Tasks toEntity(NewTaskDTO newTaskDTO);
     TasksDTO toDTO(Tasks task);
+
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Tasks partialUpdate(NewTaskDTO updateDTO, @MappingTarget Tasks tasks);
+
     List<TasksDTO> toDTO(List<Tasks> tasksList);
 
     default String mapPriority(TaskPriority priority) {
