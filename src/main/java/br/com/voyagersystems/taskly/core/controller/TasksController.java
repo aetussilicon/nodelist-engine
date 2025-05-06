@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("tasks")
 @RequiredArgsConstructor
+ @CrossOrigin(origins = "*")
 public class TasksController {
     private final TasksService service;
 
@@ -29,8 +30,9 @@ public class TasksController {
 
     @GetMapping("{taskId}")
     public ResponseEntity<TasksDTO> list(@PathVariable Long taskId) {
-        return  new ResponseEntity<>(service.list(taskId), HttpStatus.OK);
+        return new ResponseEntity<>(service.list(taskId), HttpStatus.OK);
     }
+
 
     @GetMapping
     public ResponseEntity<List<TasksDTO>> listAll() {
