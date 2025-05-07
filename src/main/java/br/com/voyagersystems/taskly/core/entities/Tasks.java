@@ -30,6 +30,10 @@ public class Tasks {
     @JoinColumn(name = "task_group")
     private TaskGroup taskGroup;
 
+    private boolean completed = false;
+
+    private Timestamp completedAt;
+
     @CreationTimestamp
     private Timestamp createdAt;
 

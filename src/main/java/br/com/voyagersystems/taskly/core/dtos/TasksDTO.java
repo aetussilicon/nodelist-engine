@@ -13,9 +13,12 @@ public record TasksDTO(
         String description,
         String priority,
         TaskGroup taskGroup,
+        boolean completed,
 
         @JsonFormat(pattern = "dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
+        Timestamp completedAt,
 
+        @JsonFormat(pattern = "dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")
         Timestamp createdAt,
 
         @JsonFormat(pattern = "dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")

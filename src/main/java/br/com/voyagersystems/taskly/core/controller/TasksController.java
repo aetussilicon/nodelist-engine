@@ -39,7 +39,6 @@ public class TasksController {
         return new ResponseEntity<>(service.list(taskId), HttpStatus.OK);
     }
 
-
     @GetMapping
     public ResponseEntity<List<TasksDTO>> listAll() {
         return new ResponseEntity<>(service.list(), HttpStatus.OK);
