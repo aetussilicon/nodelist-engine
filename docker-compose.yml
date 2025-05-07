@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: taskly-engine
+    container_name: nodelist-engine
     environment:
       DB_HOST: postgres
       DB_PORT: ${DB_PORT}
