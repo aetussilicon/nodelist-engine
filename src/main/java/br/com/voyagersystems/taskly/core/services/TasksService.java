@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -66,6 +67,16 @@ public class TasksService {
         task.setPriority(priority);
         repo.save(task);
         log.info("Task with id {} updated", taskId);
+    }
+
+    @Transactional
+    public TasksDTO setComplete(Long taskId) {
+        Tasks task = repo.findTasksByTaskId(taskId).orElseThrow(TaskNotFoundException::new);
+        task.setCompleted(true);
+        task.setCompletedAt(new Timestamp(System.currentTimeMillis()));
+        task = repo.save(task);
+        log.info("Task with id {} set as completed", taskId);
+        return mapper.toDTO(task);
     }
 
     public TasksDTO list(Long taskId) {

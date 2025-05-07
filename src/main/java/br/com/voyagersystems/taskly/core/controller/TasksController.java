@@ -34,6 +34,11 @@ public class TasksController {
         service.updatePriority(priority, taskId);
     }
 
+    @PatchMapping("complete/{taskId}")
+    public ResponseEntity<TasksDTO> completeTask(@PathVariable Long taskId) {
+        return new ResponseEntity<>(service.setComplete(taskId), HttpStatus.OK);
+    }
+
     @GetMapping("{taskId}")
     public ResponseEntity<TasksDTO> list(@PathVariable Long taskId) {
         return new ResponseEntity<>(service.list(taskId), HttpStatus.OK);
