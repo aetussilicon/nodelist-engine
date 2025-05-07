@@ -2,6 +2,7 @@ package br.com.voyagersystems.taskly.core.controller;
 
 import br.com.voyagersystems.taskly.core.dtos.NewTaskDTO;
 import br.com.voyagersystems.taskly.core.dtos.TasksDTO;
+import br.com.voyagersystems.taskly.core.enums.TaskPriority;
 import br.com.voyagersystems.taskly.core.services.TasksService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,11 @@ public class TasksController {
     @PatchMapping("update/{taskId}")
     public ResponseEntity<TasksDTO> update(@RequestBody @Valid NewTaskDTO updateDTO, @PathVariable Long taskId) {
         return new ResponseEntity<>(service.update(updateDTO, taskId), HttpStatus.OK);
+    }
+
+    @PatchMapping("priority/{taskId}")
+    public void changePriority(@PathVariable Long taskId, @RequestParam TaskPriority priority) {
+        service.updatePriority(priority, taskId);
     }
 
     @GetMapping("{taskId}")

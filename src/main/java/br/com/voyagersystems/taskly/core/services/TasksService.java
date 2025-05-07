@@ -60,6 +60,14 @@ public class TasksService {
         return mapper.toDTO(task);
     }
 
+    @Transactional
+    public void updatePriority(TaskPriority priority, Long taskId) {
+        Tasks task = repo.findTasksByTaskId(taskId).orElseThrow(TaskNotFoundException::new);
+        task.setPriority(priority);
+        repo.save(task);
+        log.info("Task with id {} updated", taskId);
+    }
+
     public TasksDTO list(Long taskId) {
         return mapper.toDTO(repo.findTasksByTaskId(taskId).orElseThrow(TaskNotFoundException::new));
     }
