@@ -55,6 +55,11 @@ public class TaskGroupsService {
     public void delete(Long taskGroupId) {
         log.info("Deleting task group with ID {}", taskGroupId);
         TaskGroup group = getGroup(taskGroupId);
+
+        if (group.getTaskGroupId().equals(1L)) {
+            throw new RuntimeException("Cannot delete the default task group");
+        }
+
         repo.delete(group);
         log.info("Task group deleted: {}", group);
     }
