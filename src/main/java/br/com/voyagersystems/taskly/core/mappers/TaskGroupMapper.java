@@ -14,7 +14,7 @@ public interface TaskGroupMapper {
 
     TaskGroupDTO toDto(TaskGroup taskGroup);
 
-    List<TaskGroup> toDto(List<TaskGroup> groups);
+    List<TaskGroupDTO> toDto(List<TaskGroup> groups);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     TaskGroup partialUpdate(NewTaskGroupDTO updateDTO, @MappingTarget TaskGroup group);
