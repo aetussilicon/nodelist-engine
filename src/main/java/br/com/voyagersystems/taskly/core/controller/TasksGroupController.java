@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/groups")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class TasksGroupController {
 
     private final TaskGroupsService service;
