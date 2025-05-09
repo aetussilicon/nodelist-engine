@@ -30,8 +30,9 @@ public class TasksController {
     }
 
     @PatchMapping("priority/{taskId}")
-    public void changePriority(@PathVariable Long taskId, @RequestParam TaskPriority priority) {
+    public ResponseEntity<Void> changePriority(@PathVariable Long taskId, @RequestParam TaskPriority priority) {
         service.updatePriority(priority, taskId);
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("complete/{taskId}")

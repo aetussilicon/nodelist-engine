@@ -30,10 +30,12 @@ public class TasksService {
     private final TaskGroupsService taskGroupsService;
 
     private TaskGroup defaultGroup;
+    private TaskGroup completeGroup;
 
     @PostConstruct
     public void init() {
         this.defaultGroup = groupsRepository.findByTaskGroupId(1L).orElseThrow(DefaultGroupNotFindException::new);
+        this.completeGroup = groupsRepository.findByTaskGroupId(2L).orElseThrow(DefaultGroupNotFindException::new);
     }
 
     public TasksDTO create(NewTaskDTO createDTO) {
@@ -82,6 +84,7 @@ public class TasksService {
         Tasks task = repo.findTasksByTaskId(taskId).orElseThrow(TaskNotFoundException::new);
         task.setCompleted(true);
         task.setCompletedAt(new Timestamp(System.currentTimeMillis()));
+        task.setTaskGroup(completeGroup);
         task = repo.save(task);
         log.info("Task with id {} set as completed", taskId);
         return mapper.toDTO(task);
