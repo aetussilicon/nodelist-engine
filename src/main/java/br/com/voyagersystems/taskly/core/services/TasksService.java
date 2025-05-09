@@ -27,6 +27,7 @@ public class TasksService {
     private final TasksRepository repo;
     private final TasksMapper mapper;
     private final TaskGroupsRepository groupsRepository;
+    private final TaskGroupsService taskGroupsService;
 
     private TaskGroup defaultGroup;
 
@@ -37,8 +38,10 @@ public class TasksService {
 
     public TasksDTO create(NewTaskDTO createDTO) {
         Tasks task = mapper.toEntity(createDTO);
-        if (task.getTaskGroup() == null) {
+        if (createDTO.taskGroup() == null) {
             task.setTaskGroup(defaultGroup);
+        } else {
+            task.setTaskGroup(taskGroupsService.getGroup(createDTO.taskGroup()));
         }
 
         if (task.getPriority() == null) {
@@ -53,8 +56,13 @@ public class TasksService {
     @Transactional
     public TasksDTO update(NewTaskDTO updateDTO, Long taskId) {
         Tasks task = repo.findTasksByTaskId(taskId).orElseThrow(TaskNotFoundException::new);
+        task = mapper.partialUpdate(updateDTO, task);
 
-        task = repo.save(mapper.partialUpdate(updateDTO, task));
+        if (!task.getTaskGroup().getTaskGroupId().equals(updateDTO.taskGroup())) {
+            task.setTaskGroup(taskGroupsService.getGroup(updateDTO.taskGroup()));
+        }
+
+        task = repo.save(task);
 
         log.info("Task with id {} updated", taskId);
 

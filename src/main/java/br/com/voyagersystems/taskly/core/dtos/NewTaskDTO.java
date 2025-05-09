@@ -8,7 +8,7 @@ public record NewTaskDTO(
         String title,
         String description,
         TaskPriority priority,
-        TaskGroup taskGroup,
+        Long taskGroup,
         boolean completed
 ) {
 }

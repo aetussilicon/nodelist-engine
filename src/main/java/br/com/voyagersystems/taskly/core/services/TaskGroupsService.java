@@ -64,7 +64,7 @@ public class TaskGroupsService {
         log.info("Task group deleted: {}", group);
     }
 
-    private TaskGroup getGroup(Long taskGroupId) {
+    protected TaskGroup getGroup(Long taskGroupId) {
         return repo.findById(taskGroupId)
                 .orElseThrow(() -> new RuntimeException("Task group not found"));
     }
