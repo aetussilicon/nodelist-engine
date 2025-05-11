@@ -7,7 +7,7 @@ import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = TasksMapper.class)
 public interface TaskGroupMapper {
 
     TaskGroup toEntity(NewTaskGroupDTO newTaskGroupDTO);

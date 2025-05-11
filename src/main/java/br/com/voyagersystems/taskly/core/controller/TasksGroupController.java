@@ -35,7 +35,7 @@ public class TasksGroupController {
 
     @GetMapping
     public ResponseEntity<List<TaskGroupDTO>> list() {
-        return new ResponseEntity<>(service.list(), HttpStatus.OK);
+        return new ResponseEntity<>(service.ListGroupsAndTasks(), HttpStatus.OK);
     }
 
     @DeleteMapping("{taskGroupId}")

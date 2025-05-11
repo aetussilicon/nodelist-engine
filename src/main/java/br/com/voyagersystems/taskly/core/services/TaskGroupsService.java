@@ -2,6 +2,7 @@ package br.com.voyagersystems.taskly.core.services;
 
 import br.com.voyagersystems.taskly.core.dtos.NewTaskGroupDTO;
 import br.com.voyagersystems.taskly.core.dtos.TaskGroupDTO;
+import br.com.voyagersystems.taskly.core.dtos.TasksDTO;
 import br.com.voyagersystems.taskly.core.entities.TaskGroup;
 import br.com.voyagersystems.taskly.core.mappers.TaskGroupMapper;
 import br.com.voyagersystems.taskly.core.repositories.TaskGroupsRepository;
@@ -43,6 +44,10 @@ public class TaskGroupsService {
         TaskGroup group = getGroup(taskGroupId);
         log.info("Task group found: {}", group);
         return mapper.toDto(group);
+    }
+
+    public List<TaskGroupDTO>  ListGroupsAndTasks() {
+        return mapper.toDto(repo.findAllWithTasks());
     }
 
     public List<TaskGroupDTO> list() {
