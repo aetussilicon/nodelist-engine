@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/groups")
@@ -31,6 +32,11 @@ public class TasksGroupController {
     @GetMapping("{taskGroupId}")
     public ResponseEntity<TaskGroupDTO> list(@PathVariable Long taskGroupId) {
         return new ResponseEntity<>(service.get(taskGroupId), HttpStatus.OK);
+    }
+
+    @GetMapping("names")
+    public ResponseEntity<Map<Long, String>> getTaskGroupNames() {
+        return new ResponseEntity<>(service.getTaskGroupNames(), HttpStatus.OK);
     }
 
     @GetMapping

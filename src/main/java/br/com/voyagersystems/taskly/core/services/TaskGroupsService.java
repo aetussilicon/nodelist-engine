@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +45,15 @@ public class TaskGroupsService {
         TaskGroup group = getGroup(taskGroupId);
         log.info("Task group found: {}", group);
         return mapper.toDto(group);
+    }
+
+    public Map<Long, String> getTaskGroupNames() {
+        log.info("Fetching all task group names");
+        return repo.findAllTaskGroupNamesAndTaskGroupId().stream()
+                .collect(Collectors.toMap(
+                    TaskGroupsRepository.TaskGroupNameProjection::getKey,
+                    TaskGroupsRepository.TaskGroupNameProjection::getValue
+                ));
     }
 
     public List<TaskGroupDTO> list() {
