@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class TasksController {
     private final TasksService service;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @PostMapping("create")
     public ResponseEntity<TasksDTO> create(@RequestBody @Valid NewTaskDTO newTaskDTO) {
@@ -26,7 +28,9 @@ public class TasksController {
 
     @PatchMapping("update/{taskId}")
     public ResponseEntity<TasksDTO> update(@RequestBody @Valid NewTaskDTO updateDTO, @PathVariable Long taskId) {
-        return new ResponseEntity<>(service.update(updateDTO, taskId), HttpStatus.OK);
+        TasksDTO tasksDTO = service.update(updateDTO, taskId);
+        messagingTemplate.convertAndSend("/topic/tasks", tasksDTO);
+        return new ResponseEntity<>(tasksDTO, HttpStatus.OK);
     }
 
     @PatchMapping("priority/{taskId}")

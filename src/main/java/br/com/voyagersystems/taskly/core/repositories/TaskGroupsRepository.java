@@ -10,6 +10,9 @@ import java.util.Optional;
 public interface TaskGroupsRepository extends JpaRepository<TaskGroup, Long> {
     Optional<TaskGroup> findByTaskGroupId(long taskGroupId);
 
+    @Query("select g from TaskGroup g left join fetch g.tasks")
+    List<TaskGroup> findAllWithTasks();
+
     interface TaskGroupNameProjection {
         Long getKey();
         String getValue();

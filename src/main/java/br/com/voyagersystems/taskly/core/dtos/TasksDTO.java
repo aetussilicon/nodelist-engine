@@ -10,7 +10,7 @@ public record TasksDTO(
         String title,
         String description,
         String priority,
-        TaskGroup taskGroup,
+        // TaskGroup taskGroup,
         boolean completed,
 
         @JsonFormat(pattern = "dd/MM/yyyy HH:mm", timezone = "America/Sao_Paulo")

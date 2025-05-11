@@ -1,6 +1,7 @@
 package br.com.voyagersystems.taskly.core.entities;
 
 import br.com.voyagersystems.taskly.core.enums.TaskPriority;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
